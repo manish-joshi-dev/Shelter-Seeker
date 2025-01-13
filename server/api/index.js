@@ -7,6 +7,9 @@ app.get('/',(req,res)=>{
     res.send('Hello from the server');
 });
 
+app.use(express.json());
+
+
 
 
 app.listen(port,()=>{
