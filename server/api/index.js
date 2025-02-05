@@ -11,6 +11,8 @@ import { Server as SocketIOServer } from 'socket.io';
 import dotenv from 'dotenv';
 import chatRoute from './routes/chat.route.js';
 import trustRoute from './routes/trust.route.js';
+import reportRoute from './routes/report.route.js';
+import { report } from 'process';
 
 dotenv.config();
 
@@ -52,6 +54,7 @@ app.use('/api/user',userRoute);
 app.use('/api/listing',listingRoute);
 app.use('/api/chat', chatRoute);
 app.use('/api/trust', trustRoute);
+app.use('/api/report',reportRoute)
 
 const allowedOrigins = [
   'http://localhost:5173',
