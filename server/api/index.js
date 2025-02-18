@@ -52,6 +52,7 @@ app.use(cookieParser());
 app.use('/api/auth',userAuth);
 app.use('/api/user',userRoute);
 app.use('/api/listing',listingRoute);
+app.use('/api/locality-insights',localityInsightRoutes);
 app.use('/api/chat', chatRoute);
 app.use('/api/trust', trustRoute);
 app.use('/api/report',reportRoute)
