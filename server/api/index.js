@@ -1,11 +1,14 @@
 import express from 'express';
 import cookieParser from "cookie-parser"
-import userAuth from './routes/userAuth.js';
+import userAuth from './routes/auth.route.js';
 import userRoute from './routes/user.route.js';
 import listingRoute from './routes/listing.route.js';
 import mongoose from 'mongoose';
 import http from 'http';
 import cors from 'cors';
+import localityInsightRoutes from './routes/localityInsight.route.js';
+import adminRoute from './routes/admin.route.js';
+import Conversation from '../model/conversation.model.js';
 import { Server as SocketIOServer } from 'socket.io';
 // import { allowedOrigins } from '../config/corsConfig.js';
 import dotenv from 'dotenv';
@@ -55,7 +58,9 @@ app.use('/api/listing',listingRoute);
 app.use('/api/locality-insights',localityInsightRoutes);
 app.use('/api/chat', chatRoute);
 app.use('/api/trust', trustRoute);
-app.use('/api/report',reportRoute)
+app.use('/api/report',reportRoute);
+app.use('/api/admin',adminRoute);
+
 
 const allowedOrigins = [
   'http://localhost:5173',
