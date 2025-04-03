@@ -10,6 +10,7 @@ import Updatelisting from "./pages/updatelisting.jsx";
 import PrivateRoute from "./components/privateRoute.jsx";
 import Lds from "./pages/listing.jsx";
 import Search from "./pages/search.jsx";
+import Profile from "./pages/profile.jsx";
 import "./App.css";
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/listing/:id' element={<Lds/>} ></Route>
           <Route path='/search' element={<Search/>}></Route>
           <Route element={<PrivateRoute />}>
+            <Route path='/profile' element={<Profile/>} ></Route>
             <Route path="/listing" element={<CreateListing />}></Route>
             <Route
               path="/updatelisting/:id"
