@@ -6,13 +6,13 @@ import About from "./pages/about.jsx";
 import SignIn from "./pages/signin.jsx";
 import SignUp from "./pages/signup.jsx";
 import CreateListing from "./pages/createListing.jsx";
-import Updatelisting from "./pages/updatelisting.jsx";
+
 import PrivateRoute from "./components/privateRoute.jsx";
 import Lds from "./pages/listing.jsx";
 import Search from "./pages/search.jsx";
 import Profile from "./pages/profile.jsx";
+import UpdateListing from "./pages/updateListing.jsx";
 import "./App.css";
-
 
 function App() {
   return (
@@ -22,15 +22,19 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
-          <Route path='/listing/:id' element={<Lds/>} ></Route>
-          <Route path='/search' element={<Search/>}></Route>
+          <Route path="/listing/:id" element={<Lds />}></Route>
+          <Route path="/search" element={<Search />}></Route>
           <Route element={<PrivateRoute />}>
-            <Route path='/profile' element={<Profile/>} ></Route>
+            <Route path="/profile" element={<Profile />}></Route>
             <Route path="/listing" element={<CreateListing />}></Route>
+
             <Route
               path="/updatelisting/:id"
-              element={<Updatelisting />}
+              element={<UpdateListing />}
             ></Route>
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/mychats" element={<MyChats />}></Route>
           </Route>
 
           <Route path="/signin" element={<SignIn />}></Route>
