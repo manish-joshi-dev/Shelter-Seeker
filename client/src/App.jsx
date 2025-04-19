@@ -6,7 +6,8 @@ import About from "./pages/about.jsx";
 import SignIn from "./pages/signin.jsx";
 import SignUp from "./pages/signup.jsx";
 import CreateListing from "./pages/createListing.jsx";
-
+import MyChats from "./pages/myChats.jsx";
+import LocalInsights from "./pages/localInsights.jsx";
 import PrivateRoute from "./components/privateRoute.jsx";
 import Lds from "./pages/listing.jsx";
 import Search from "./pages/search.jsx";
@@ -32,6 +33,7 @@ function App() {
               path="/updatelisting/:id"
               element={<UpdateListing />}
             ></Route>
+            <Route path='/listing/:id/insights' element={<LocalInsights/>} ></Route>
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/mychats" element={<MyChats />}></Route>

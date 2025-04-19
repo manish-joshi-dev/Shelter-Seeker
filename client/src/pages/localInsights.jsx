@@ -159,7 +159,7 @@ const LocalInsights = () => {
       });
       
       const data = await response.json();
-      console.log('Question response:', data);
+    //   console.log('Question response:', data);
       
       if (response.ok) {
         setNewQuestion({ question: '', category: 'General' });
