@@ -37,6 +37,7 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/mychats" element={<MyChats />}></Route>
+             <Route path='/admin/dashboard' element={<AdminDashboard/>}></Route>
           </Route>
 
           <Route path="/signin" element={<SignIn />}></Route>
