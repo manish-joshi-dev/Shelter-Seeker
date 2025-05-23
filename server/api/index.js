@@ -1,36 +1,47 @@
-import express from 'express';
+import express from "express"
+import mongoose from "mongoose"
+import dotenv from "dotenv"
+import userRouter from "../api/routes/user.route.js"
+import userAuth from "../api/routes/auth.route.js"
+import userListing from "../api/routes/listing.route.js"
+import chatRoutes from "../api/routes/chat.route.js"
+import localityInsightRoutes from "../api/routes/localityInsight.route.js"
+import adminRoutes from "../api/routes/admin.route.js"
+import reportRoutes from "../api/routes/report.route.js"
+import trustRoutes from "../api/routes/trust.route.js"
 import cookieParser from "cookie-parser"
-import userAuth from './routes/auth.route.js';
-import userRoute from './routes/user.route.js';
-import listingRoute from './routes/listing.route.js';
-import mongoose from 'mongoose';
-import http from 'http';
-import cors from 'cors';
-import localityInsightRoutes from './routes/localityInsight.route.js';
-import adminRoute from './routes/admin.route.js';
-import Conversation from '../model/conversation.model.js';
-import { Server as SocketIOServer } from 'socket.io';
-// import { allowedOrigins } from '../config/corsConfig.js';
-import dotenv from 'dotenv';
-import chatRoute from './routes/chat.route.js';
-import trustRoute from './routes/trust.route.js';
-import reportRoute from './routes/report.route.js';
-import { report } from 'process';
+import cors from "cors";
+import http from "http";
+import { Server as SocketIOServer } from "socket.io";
+import Conversation from "../api/model/conversation.model.js";
+
+
+
 
 dotenv.config();
 
+
+
 mongoose.connect(process.env.MONGO).then(()=>{
-    console.log("Connected to MongoDB")
+    console.log('Connected to mongoDB!!');
+    
 }).catch((err)=>{
     console.log(err);
+    
 })
-
 const app = express();
-const port = 5000;
 
-app.get('/',(req,res)=>{
-    res.send('Hello from the server');
-});
+const port = 3000;
+app.use(express.json());
+app.use(cookieParser());
+// Allow multiple origins for development
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:3000',
+  process.env.CLIENT_URL
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -49,27 +60,32 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
 
-app.use(express.json());
-app.use(cookieParser());
-
+// app.get('/test', (req, res) => {
+//   res.send('Hello World!')
+// })
+app.use('/api/user',userRouter);
 app.use('/api/auth',userAuth);
-app.use('/api/user',userRoute);
-app.use('/api/listing',listingRoute);
+app.use('/api/listing',userListing);
+app.use('/api/chat',chatRoutes);
 app.use('/api/locality-insights',localityInsightRoutes);
-app.use('/api/chat', chatRoute);
-app.use('/api/trust', trustRoute);
-app.use('/api/report',reportRoute);
-app.use('/api/admin',adminRoute);
+app.use('/api/admin',adminRoutes);
+app.use('/api/reports',reportRoutes);
+app.use('/api/trust',trustRoutes);
 
+app.use((err,req,res,next)=>{
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+  return res.status(statusCode).json(
+    {
+      success:false,
+      statusCode,
+      message
+       
+    }
+  );
+})
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://localhost:5175',
-  'http://localhost:3000',
-  process.env.CLIENT_URL
-].filter(Boolean);
-
+// Create HTTP server and attach Socket.IO
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
   cors: {
@@ -79,8 +95,7 @@ const io = new SocketIOServer(server, {
   }
 });
 
-
-
+// In-memory presence map
 const userIdToSocketIds = new Map();
 
 io.on('connection', (socket) => {
@@ -137,7 +152,6 @@ io.on('connection', (socket) => {
   });
 });
 
-
-server.listen(port,()=>{
-    console.log(`Server is running on http://localhost:${port}`);
-})
+server.listen(port, () => {
+  console.log(`HTTP and Socket.IO server listening on port ${port} !!`)
+});

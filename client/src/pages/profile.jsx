@@ -174,7 +174,7 @@ function profile() {
       );
       const data = await res.json();
       if(data.success===false) {
-        // console.log(data.message);
+        console.log(data.message);
         setShowListingError(data.message);
         return;
 
@@ -199,7 +199,7 @@ function profile() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+          {/* Profile Form */}
           <div className="lg:col-span-2">
             <div className="card p-6">
               <h2 className="text-xl font-semibold text-neutral-900 mb-6">Personal Information</h2>

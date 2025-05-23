@@ -2,15 +2,17 @@ import TrustSystemService from '../services/trustSystem.service.js';
 import User from '../model/user.model.js';
 import { errorHandler } from '../utils/error.js';
 
-
-
+/**
+ * Update user trust points (Admin only)
+ * PUT /api/trust/:id/points
+ */
 export const updateTrustPoints = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { points, action, reason } = req.body;
         const adminId = req.user.id;
 
-        
+        // Validate input
         if (!points || typeof points !== 'number') {
             return next(errorHandler(400, 'Points value is required and must be a number'));
         }

@@ -34,6 +34,7 @@ export const getalluser  = async(req,res) =>{
         res.status(404).json("not fetched")
     }
 }
+
 export const signin = async (req,res,next)=>{
     const {email,password} = req.body;
     try {
