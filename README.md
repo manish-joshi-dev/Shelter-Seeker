@@ -36,7 +36,6 @@ flowchart TD
     D["Listing Routes (/api/listing)"]
     E["Chat Routes (/api/chat)"]
     F["Locality Insights (/api/locality-insights)"]
-    G["Report Routes (/api/reports)"]
     H["Trust Routes (/api/trust)"]
     I["Upload Routes (/api/upload)"]
     J["Admin Routes (/api/admin)"]
@@ -47,7 +46,6 @@ flowchart TD
     A --> D
     A --> E
     A --> F
-    A --> G
     A --> H
     A --> I
     A --> J
